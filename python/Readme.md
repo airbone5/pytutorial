@@ -12,6 +12,17 @@ pip uninstall -r requirements.txt
 pip uninstall -r requirements.txt -y
 ```
 
+
+## notebook
+
+```
+pip install  notebook
+pip freeze >requirements.txt
+pip install -r requirments.txt
+```
+
+
+
 ## git 
 ```
 git add .

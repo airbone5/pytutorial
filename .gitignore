@@ -4,5 +4,12 @@
 **/*.xlsx
 **/*.pptx
 **/*.ppt
+**/*.exe
+**/.env
 **/ireadme.md
-**/prj
+**/prj/*
+**/.venv/*
+**/build/*
+**./dist/*
+**/.vscode/*
+**/*.ffs_db
