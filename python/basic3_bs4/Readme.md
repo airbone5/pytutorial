@@ -1,5 +1,7 @@
-bs4需要 [buildtools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+beautifulsoup4(bs4)需要另外安裝 [buildtools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+簡單來說就是把網頁變成DOM
 
+範例
 1. 找出網頁中每個水庫的有效蓄水量
 
 ## 問題

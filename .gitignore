@@ -8,8 +8,10 @@
 **/.env
 **/ireadme.md
 **/prj/*
+**/hf/*
 **/.venv/*
 **/build/*
 **./dist/*
 **/.vscode/*
 **/*.ffs_db
+**/*.gguf

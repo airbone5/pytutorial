@@ -14,3 +14,7 @@ pyinstaller -D 多個檔案(例如目錄)
 ```
 ocmd show
 ```
+
+- [ocmd_basic.py](./ocmd_basic.py): 練習影片用的程式碼 (原先是ocmd.py)
+- [ocmd.py](./ocmd.py)
+

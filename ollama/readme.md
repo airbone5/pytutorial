@@ -14,7 +14,7 @@
 
 ## curl 
 [demo by openai](https://ollama.com/blog/openai-compatibility)
-[api](https://github.com/ollama/ollama/blob/main/docs/api.md)
+[ollama api](https://github.com/ollama/ollama/blob/main/docs/api.md)
 
 - chat
 ```

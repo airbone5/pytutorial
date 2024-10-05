@@ -1,9 +1,6 @@
-import argparse
 import sys
 import requests
 import json
-
-
 
 def list_model():
     response = requests.get('http://localhost:11434/api/tags')
@@ -33,28 +30,26 @@ def show():
     }
     data = '{"name": "phi3:3.8b"}'
     response = requests.post('http://localhost:11434/api/show', headers=headers, data=data)    
-    #json_formatted_str = json.dumps(response.json(), indent=2)
-    #print(json_formatted_str)    
-    print(response.json()['modelfile'])
+    json_formatted_str = json.dumps(response.json(), indent=2)
+    print(json_formatted_str)    
+
    
+    
+option=sys.argv[1]
 
-parser = argparse.ArgumentParser()
-parser.add_argument("command") # 命令例如show,list,unload
-parser.add_argument("model",  nargs='?',default="phi3:3.8b",help="模型名稱預設:phi3:3.8b")# 字串
-#parser.add_argument("arg3",  nargs='?',default=0, help="第 3 個參數", type=int)
-#parser.add_argument("-v", "--verbose", help="比較多的說明", action="store_true")
-
-options = parser.parse_args()    
-
-
-if options.command == "list":
+if option == "list":
     list_model()
-elif options.command == "forever":
+elif option == "forever":
     forever()
-elif options.command == "show":
-    print(options.model)
+elif option == "show":
     show()    
-elif options.command == "unload":
+elif option == "unload":
     unload()        
 else:
     print('give me command:list, forever,show,unload')
+# elif lang == "Python":
+#     return "You can become a Data Scientist"
+# elif lang == "Solidity":
+#     return "You can become a Blockchain developer."
+# elif lang == "Java":
+#     return "You can become a mobile app developer"
