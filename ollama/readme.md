@@ -1,4 +1,12 @@
+## [安裝pytorch](https://pytorch.org/get-started/locally/)
+- only cpu
+```
+pip3 install torch torchvision torchaudio
+```
 
+# Ollama
+## 參考
+- [ollama example tinyllam(Github)a](https://ollama.com/library/tinyllama:1.1b)
 
 ## 環境
 - 沒有nvidia 只有CPU(在虛擬機上)

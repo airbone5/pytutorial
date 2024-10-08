@@ -15,3 +15,5 @@
 **/.vscode/*
 **/*.ffs_db
 **/*.gguf
+**/__pycache__
+**/pretrain/*

@@ -9,5 +9,5 @@ if %ans%==No (
     echo create prj venv
     py -m venv prj
 )
-.\prj\Scripts\activate.bat
+call .\prj\Scripts\activate.bat
 pip install -r requirements.txt
