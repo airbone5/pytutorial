@@ -5,6 +5,11 @@
 ├── llama.cpp 工具
 └── prj
 ```
+
+### 常用指令 
+ollama show --modelfile qwen2.5:0.5b
+
+
 ## 其他參考
 [Modelfile](https://github.com/ollama/ollama/blob/main/docs/modelfile.md#template)
 [Ollama - Building a Custom Model](https://unmesh.dev/post/ollama_custom_model/)

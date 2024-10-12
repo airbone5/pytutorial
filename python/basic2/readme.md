@@ -1,3 +1,7 @@
+## 目的
+
+匯入外部資料,主要是CSV文件
+
 
 ```
 pip install  notebook

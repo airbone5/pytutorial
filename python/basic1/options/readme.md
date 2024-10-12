@@ -21,8 +21,11 @@ if __name__ == '__main__':
 start
 ['c:\\Users\\linchao\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\ipykernel_launcher.py', '--f=c:\\Users\\linchao\\AppData\\Roaming\\jupyter\\runtime\\kernel-v31f52aa1600e6bb88d599e1fcd037bc6640b1fb1b.json']
 ```
+## 利用其他套件
+上面的方法利用的是內建套件`sys` 也可以利用`argparse`, `click`
 
-[參考argparse](https://docs.python.org/zh-tw/3/howto/argparse.html)
+### 套件argparse
+- [參考argparse](https://docs.python.org/zh-tw/3/howto/argparse.html)
 [](程式碼
 )
 ```bash
@@ -55,7 +58,7 @@ print(f"第 2 個參數：{args.arg2:^10},type={type(args.arg2)}")
 print(f"第 3 個參數：{args.arg3:^10},type={type(args.arg3)}")
 ```
 
-## 套件click
+### 套件click
 
 ```python
 import click
