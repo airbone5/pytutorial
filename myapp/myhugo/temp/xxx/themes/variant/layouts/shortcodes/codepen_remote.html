@@ -1,0 +1,23 @@
+{{/*
+使用範例
+{{% codepen_remote user="" id="PKEYxN" theme="light"  %}}
+*/}}
+
+{{/* DEFAULTS */}}
+{{ $user    := default "class4rmi" (.Get "user") }}
+{{ $height  := 500 }}
+{{ $tab     := "result" }}{{/* html|css|js|result */}}
+{{ $theme   := default 8862 (.Get "theme") }}{{/* create on codepen.io */}}
+
+<div style="margin:2px auto;">
+<script
+    data-slug-hash="{{ .Get "id" }}"
+    data-user="{{ $user }}"
+    data-height="{{ or (.Get "height") $height }}"
+    data-default-tab="{{ or (.Get "tab") $tab }}"
+    data-theme-id="{{ or (.Get "theme") $theme }}"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+</div>

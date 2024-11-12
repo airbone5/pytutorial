@@ -1,0 +1,1 @@
+.\prj\Scripts\deactivate.bat

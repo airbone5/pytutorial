@@ -1,0 +1,1 @@
+FROM ./qwen_7b.gguf

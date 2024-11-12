@@ -1,0 +1,19 @@
+From ../../pretrain/taide/taide-7b-a.2-q4_k_m.gguf
+TEMPLATE """{{ if .System }}<|start_header_id|>system<|end_header_id|>
+
+{{ .System }}<|eot_id|>{{ end }}{{ if .Prompt }}<|start_header_id|>user<|end_header_id|>
+
+{{ .Prompt }}<|eot_id|>{{ end }}<|start_header_id|>assistant<|end_header_id|>
+
+{{ .Response }}<|eot_id|>"""
+PARAMETER num_keep 24
+PARAMETER stop "<|start_header_id|>"
+PARAMETER stop "<|end_header_id|>"
+PARAMETER stop "<|eot_id|>"
+system """
+System 你是保險法律助手
+PROMPT 甚麼是保險
+RESPONSE 保險指當事人約定，一方交付保險費於他方，他方對於因不可預料，或不可抗力之事故所致之損害，負擔賠償財物之行為
+PROMPT 甚麼是保險人
+RESPONSE 保險人指經營保險事業之各種組織，在保險契約成立時，有保險費之請求權；在承保危險事故發生時，依其承保之責任，負擔賠償之義務。
+"""

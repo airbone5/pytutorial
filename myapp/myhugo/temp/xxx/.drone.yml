@@ -1,0 +1,8 @@
+kind: template
+load: hugodeploy.yaml
+data:
+  giteahost: alar
+  giteaip: 192.168.1.50
+  themeurl: http://alar:3000/linchao/myhugotheme.git
+  wwwroot: /mnt/d/rlab/www
+  wwwpath: /work/spida

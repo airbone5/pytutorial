@@ -1,0 +1,4 @@
+#flask-ngrok
+#flask-ngrok2
+pyngrok
+python-dotenv

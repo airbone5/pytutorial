@@ -1,0 +1,22 @@
+{{- $incode := default true (.Get "incode") -}}
+{{- "<!--html_preserve-->" | safeHTML -}}
+<div  class="expand {{- with (.Get "class") }} {{.}} {{end -}}">
+<div  class="expand-label" onclick="vexpand(this)">
+<i  style="font-size:x-small;color:yellow" class="fa fa-chevron-right"></i>
+<span  >
+{{- $expandMessage := "展開" -}}
+{{-  if .IsNamedParams  -}}
+{{- ( or (.Get "default") (.Get "title") | default $expandMessage )| markdownify| emojify -}}
+{{- else -}}
+{{- (.Get 0 | default $expandMessage) | markdownify| emojify -}}
+{{- end -}}
+</span>
+</div>
+{{- if $incode -}}
+<div  class="expand-content incode" style="overflow-x:auto">{{- "<!--/html_preserve-->" | safeHTML -}}
+{{- trim .Inner "\r\n"  -}}
+{{- else -}}
+<div  class="expand-content" style="overflow-x:auto">{{- "<!--/html_preserve-->" | safeHTML -}}
+{{- .Inner  |markdownify -}}
+{{- end -}}
+{{- "<!--html_preserve-->" | safeHTML -}}</div></div>{{- "<!--/html_preserve-->" | safeHTML -}}

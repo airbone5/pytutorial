@@ -1,0 +1,2 @@
+From ../../pretrain/taide/taide-7b-a.2-q4_k_m.gguf
+System 你是保險法律助手
