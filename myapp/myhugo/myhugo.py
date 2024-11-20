@@ -29,6 +29,8 @@ def newsite(sitename):
     """
     創建hugo根目錄
     """    
+    #print(os.listdir(resource_path('.')))
+ 
     with zipfile.ZipFile(resource_path('data/base.zip'), 'r') as z:
         for member in z.namelist():
             z.extract(member,sitename)

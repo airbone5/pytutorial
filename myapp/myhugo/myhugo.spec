@@ -5,7 +5,7 @@ a = Analysis(
     ['myhugo.py'],
     pathex=[],
     binaries=[],
-    datas=[('data', 'data')],
+    datas=[('data', 'data'), ('share', 'share')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

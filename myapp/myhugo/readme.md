@@ -26,20 +26,24 @@ D:.
 └─舊版 
 ```
 
-需要兩個檔案,一個子目錄data
+需要兩個檔案,2個子目錄`data`,`share`
 - subhugo.py
 - myhugo.py
 - data\
+- share 這是jupyter 的template
 ### 打包
 必須先執行venv (同時裡面要有pyinstaller)否則執行結果很慢
-```
+```cmd
 pyinstaller --add-data=data;data -F myhugo.py
 # 意思是把上面的data 應設定exe裡面的data目錄
+#😉這裡把jupyter 的template 包含進來
+pyinstaller --add-data=data;data --add-data=share;share -F myhugo.py
 ```
 demo:
 ```
 python myhugo.py newsite temp\xxx
 python myhugo.py tohugo --srcdir d:\work\python --destdir xxx
+python myhugo.py tohugo --srcdir d:\temp\basic5_torch --destdir yyy
 
 python myhugo.py fixcontent --srcdir temp\python
 ```

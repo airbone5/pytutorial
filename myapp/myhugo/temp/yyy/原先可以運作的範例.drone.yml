@@ -1,0 +1,51 @@
+kind: pipeline
+type: docker
+name: default
+
+# default clone doesn't recursive
+clone:
+  disable: true
+
+steps:
+- name: clone-with-submodules
+  image: plugins/git
+  extra_hosts:
+    - "webalar:192.168.65.2"
+  pull: if-not-exists
+  settings:
+    depth: 50
+    recursive: true
+
+- name: build
+  image: klakegg/hugo
+  pull: if-not-exists
+  commands:
+    - hugo -b "https://localhost/work/spida/"
+    - ls -la docs
+
+- name: deploy
+  image: hugocopy
+  environment:
+    target: new
+  #user: 0 #root
+  pull: if-not-exists
+  volumes:
+  - name: cache
+    path: /tmp/cache  
+  commands:
+    - rsync -a --progress --delete ./docs/ /tmp/cache/work/spida #/usr/local/upload.sh
+  when:
+    branch:
+      include:
+        - master
+        - main
+trigger:
+  branch:
+  - master
+  - main
+  - dev
+
+volumes:
+- name: cache
+  host:
+    path: /mnt/d/rlab/www

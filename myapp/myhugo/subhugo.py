@@ -87,7 +87,7 @@ weight: 300
 
 def fileIgnore(afile):
     rst=False
-    ignorePattern=[r'.*[\\]?prj\\.*',r'.*\.mp4',r'.*[\\]?\.env',r'.*[\\]?__pycache__.*',r'.*[\\]?.vscode.*']
+    ignorePattern=[r'.*[\\]?prj\\.*',r'.*\.mp4',r'.*[\\]?\.env',r'.*[\\]?__pycache__.*',r'.*[\\]?checkpoints\\.*',r'.*[\\]?.vscode.*']
     for p in ignorePattern:
         rst=re.fullmatch(p,afile)!=None
         if rst:
@@ -113,6 +113,8 @@ def tohugo(srcdir,dstdir):
                 if srcName.endswith('.ipynb'):   
                     dstName=dstName.rsplit( ".", 1 )[0]+'.md'
                     md,res=tomd(srcName,dstName)
+                    print(res)
+                    
                 else:
                     if srcName.endswith('.md') or srcName.endswith('.html'):
                         if not hasHugoHead(srcName):
@@ -128,7 +130,7 @@ def tohugo(srcdir,dstdir):
 
 def fixcontent(srcdir):
     checkAddIndex(srcdir)
-
+    
     for folder, subfolders,filenames in os.walk(srcdir, topdown=False):    
         for filename in filenames:        
             srcName=os.path.join(folder,filename)
