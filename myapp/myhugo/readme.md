@@ -16,6 +16,8 @@ argparse
 1. 整個`C:\Users\linchao\AppData\Local\Programs\Python\Python312\share\jupyter\nbconvert` 複製到
 `C:\Users\linchao\AppData\Roaming\jupyter`
 
+## 相關參考
+- [html code for png](https://stackoverflow.com/questions/18668181/ipython-notebook-png-figures-after-nbconvert-not-loaded-by-latest-chrome-firefo)
 ## myhugo
 
 ### 目錄結構
@@ -42,7 +44,7 @@ pyinstaller --add-data=data;data --add-data=share;share -F myhugo.py
 demo:
 ```
 python myhugo.py newsite temp\xxx
-python myhugo.py tohugo --srcdir d:\work\python --destdir xxx
+python myhugo.py tohugo --srcdir d:\temp\python\basic1 --destdir xxx
 python myhugo.py tohugo --srcdir d:\temp\basic5_torch --destdir yyy
 
 python myhugo.py fixcontent --srcdir temp\python
@@ -50,5 +52,5 @@ python myhugo.py fixcontent --srcdir temp\python
 exe demo
 ```
 dist\myhugo newsite temp\xxx 
-dist\myhugo tohugo --srcdir d:\work\python --destdir temp\xxx
+dist\myhugo tohugo --srcdir temp\python --destdir temp\xxx
 ```

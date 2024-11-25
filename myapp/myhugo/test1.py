@@ -23,7 +23,7 @@ def tomd(aname,mdname):
 
  
     
-afile=r"python\basic1\tutorial.ipynb"    
+afile=r"temp\python\basic1\tutorial.ipynb"    
 md,res=tomd(afile,'xx.md')
 print(md)
 print(res["outputs"].keys())
