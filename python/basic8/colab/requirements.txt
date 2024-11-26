@@ -3,3 +3,6 @@
 flask
 pyngrok
 python-dotenv
+matplotlib
+pyqrcode
+pypng
