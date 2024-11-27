@@ -4,7 +4,7 @@ demo:
 python myhugo.py newsite xxx
 python myhugo.py tohugo --srcdir c:/python2 --destdir temp/xxx
 python myhugo.py tohugo --srcdir c:/python2 --destdir temp/xxx --excludedir tmp 
-python myhugo.py tohugo --srcdir c:/pywork --destdir temp/xxx  -e tmp -e pretrain -e myapp
+python myhugo.py tohugo --srcdir c:/pywork2 --destdir temp/xxx -e temp -e tmp -e pretrain -e myapp
 
 
 """

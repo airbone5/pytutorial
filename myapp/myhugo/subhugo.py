@@ -99,22 +99,22 @@ weight: 300
 ---
 {{< local_file_list >}}
 """
-    for folder, subfolders,filenames in os.walk(targetfolder, topdown=False):  
+    if isFolderHas(targetfolder,".skipindex"):
+      return
+    for folder, subfolders,filenames in os.walk(targetfolder, topdown=True):  
       tmpfolders= getExcludeDirPattern()
       tmpfolders.append('\\b.*_files\\b')
       exclude_folders='|'.join(tmpfolders)
       subfolders[:] = [d for d in subfolders if not d.startswith('.')]
-      for d in subfolders:    
-        if re.search(exclude_folders,d)!=None:
-          print(f"add index: 忽略目錄 {os.path.join(folder,d)}")
-          subfolders.remove(d)
+      #如果目錄是被排除的目錄 ， 或者包含 .skipindex就不要加入_index.md 
+      subfolders[:] = [d for d in subfolders if re.search(exclude_folders,d)==None and not isFolderHas(os.path.join(folder,d),'.skipindex')]
 
-        if not fileIgnore(folder):
-            fname=os.path.join(folder,'_index.md')
-            if not os.path.exists(fname):
-                atitle=os.path.basename(folder)
-                atxt=idxcontent % ( atitle) 
-                writeText(atxt,fname)
+      if not fileIgnore(folder):
+        fname=os.path.join(folder,'_index.md')
+        if not os.path.exists(fname):
+            atitle=os.path.basename(folder)
+            atxt=idxcontent % ( atitle) 
+            writeText(atxt,fname)
 
 def fileIgnore(afile):
     rst=False
@@ -153,15 +153,18 @@ def getExcludeDirPattern():
 #redir=getExcludeDirPattern()
 
 def tohugo(srcdir,dstdir):
+ 
     checkAddIndex(srcdir)
+
     #exclude_folders= '|'.join(config["excludedir"])
     exclude_folders='|'.join(getExcludeDirPattern())
     for folder, subfolders,filenames in os.walk(srcdir, topdown=True):    
       subfolders[:] = [d for d in subfolders if not d.startswith('.')]
-      for d in subfolders:    
-        if re.search(exclude_folders,d)!=None:
-          print(f"忽略目錄 {os.path.join(folder,d)}")
-          subfolders.remove(d)
+      subfolders[:] = [d for d in subfolders if re.search(exclude_folders,d)==None ]
+      # for d in subfolders:    
+      #   if re.search(exclude_folders,d)!=None:
+      #     print(f"忽略目錄 {os.path.join(folder,d)}")
+      #     subfolders.remove(d)
       # print('提早結束')    
       # continue
       for filename in filenames:        
