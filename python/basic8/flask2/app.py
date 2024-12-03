@@ -1,7 +1,7 @@
 from flask import Flask,render_template,redirect,url_for
 
 #app = Flask(__name__)
-app = Flask(__name__, static_url_path='/static') 
+app = Flask(__name__, static_url_path='/static') # 其實第二個參數用的/static是預設值
 
 @app.route('/')
 def home():

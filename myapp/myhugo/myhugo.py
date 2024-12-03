@@ -1,7 +1,7 @@
 """
 pyinstaller --add-data=data;. -F myhugo.py
 demo:
-python myhugo.py newsite xxx
+python myhugo.py newsite temp/xxx --publish_root ailearn
 python myhugo.py tohugo --srcdir c:/python2 --destdir temp/xxx
 python myhugo.py tohugo --srcdir c:/python2 --destdir temp/xxx --excludedir tmp 
 python myhugo.py tohugo --srcdir c:/pywork2 --destdir temp/xxx -e temp -e tmp -e pretrain -e myapp
@@ -42,17 +42,31 @@ def db():
 
 @click.command()
 @click.argument('sitename') #, prompt='new site name',  help='hugo根目錄.')
-def newsite(sitename):
-    """
-    創建hugo根目錄
-    """    
-    #print(os.listdir(resource_path('.')))
- 
-    with zipfile.ZipFile(resource_path('data/base.zip'), 'r') as z:
-        for member in z.namelist():
-            z.extract(member,sitename)
+@click.option("-p","--publish_root", default="",help="發布的根目錄")
+def newsite(sitename,publish_root):
+  """
+  創建hugo根目錄
+  """    
+  #print(os.listdir(resource_path('.')))
 
-
+  with zipfile.ZipFile(resource_path('data/base.zip'), 'r') as z:
+      for member in z.namelist():
+          z.extract(member,sitename)
+  publishbat=r"""
+  SET wd="%cd%"
+  set outdir=_temp
+  if exist %outdir% (
+    rm -rf %outdir%
+  ) 
+  mkdir %outdir%
+  hugo -s %wd% -d %outdir% -b "https://rmilab.nkust.edu.tw/public/{0}"
+  xcopy /s /f /y /i "%outdir%\" "\\alar\d\rlab\www\public\{0}\"
+  rm -rf %outdir%
+  """
+  if publish_root=="":
+      publish_root=os.path.basename(sitename)
+  with open(f"{sitename}/alarpublish.bat","w") as f:
+      f.write(publishbat.format(publish_root))
  
 
 

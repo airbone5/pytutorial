@@ -2,3 +2,4 @@ nb2hugo
 #argparse
 click
 pyinstaller
+toml

@@ -43,7 +43,7 @@ def tomd(aname,mdname):
     #aResourceDict=ResourcesDict()
     #aResourceDict['images_path']="xxxx"
     #markdown, resources = exporter.from_notebook_node(notebook,aResourceDict)
-    imgpath=realbasename(mdname)+'_files'
+    imgpath=realbasename(mdname)+'.files'  ## n1
     markdown, resources = exporter.from_notebook_node(notebook,{'output_files_dir':imgpath})
     markdown=AddHugoHead(markdown,os.path.basename(aname).rsplit('.')[0])
     writeText(markdown,mdname)
@@ -103,7 +103,8 @@ weight: 300
       return
     for folder, subfolders,filenames in os.walk(targetfolder, topdown=True):  
       tmpfolders= getExcludeDirPattern()
-      tmpfolders.append('\\b.*_files\\b')
+      #tmpfolders.append('\\b.*_files\\b') # n1 -1 +1
+      tmpfolders.append('\\b.*\\.files\\b') # n1 -1 +1
       exclude_folders='|'.join(tmpfolders)
       subfolders[:] = [d for d in subfolders if not d.startswith('.')]
       #如果目錄是被排除的目錄 ， 或者包含 .skipindex就不要加入_index.md 
@@ -119,7 +120,7 @@ weight: 300
 def fileIgnore(afile):
     rst=False
     #ignorePattern=[r'.*\\[.]git',r'.*[\\].*_files',r'.*[\\]?prj\\.*',r'.*\.mp4',r'.*[\\]?\.env',r'.*[\\]?__pycache__.*',r'.*[\\]?checkpoints\\.*',r'.*[\\]?.vscode.*']
-    ignorePattern=[r'.*\.mp4']
+    ignorePattern=[r'.*\.mp4',r'\\[.].*']
     for p in ignorePattern:
         rst=re.fullmatch(p,afile)!=None
         if rst:

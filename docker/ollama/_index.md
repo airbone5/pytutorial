@@ -1,5 +1,5 @@
 ---
-title: basic4_langchain
+title: ollama
 description: auto
 weight: 300
 ---
