@@ -44,6 +44,7 @@ pyinstaller --add-data=data;data --add-data=share;share -F myhugo.py
 demo:
 ```
 python myhugo.py newsite temp\xxx
+python myhugo.py newsite temp/xxx --publish_root ailearn # 在課堂伺服器www/public發布的根目錄,例如www/public/ailearn
 python myhugo.py tohugo --srcdir d:\temp\python\basic1 --destdir xxx
 python myhugo.py tohugo --srcdir d:\temp\basic5_torch --destdir yyy
 
@@ -54,3 +55,4 @@ exe demo
 dist\myhugo newsite temp\xxx 
 dist\myhugo tohugo --srcdir temp\python --destdir temp\xxx
 ```
+

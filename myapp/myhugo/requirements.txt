@@ -1,5 +1,6 @@
-nb2hugo
+#nb2hugo
 #argparse
+nbconvert
 click
 pyinstaller
 toml

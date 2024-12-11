@@ -2,8 +2,8 @@ import os,sys,re
 import shutil
 import nbformat
 import datetime
-from nb2hugo.exporter import HugoExporter
-#from nbconvert import MarkdownExporter
+#from nb2hugo.exporter import HugoExporter
+from nbconvert import MarkdownExporter
 from nbconvert.exporters.exporter import ResourcesDict
 
 #import json
@@ -35,14 +35,10 @@ def tomd(aname,mdname):
     content=readText(aname)
     notebook=nbformat.reads(content, as_version=4)
 
-    #notebook = notebooknode.from_dict(content)
-    exporter = HugoExporter() 
-    #exporter = MarkdownExporter() 
+    
+    #exporter = HugoExporter() # 原先用的是這個
+    exporter = MarkdownExporter() 
     #註解 output_files_dir, in nbconvert ,hugoexporter images_path
-    #markdown, resources = exporter.from_notebook_node(notebook,resources={"images_path":os.path.basename(mdname)})
-    #aResourceDict=ResourcesDict()
-    #aResourceDict['images_path']="xxxx"
-    #markdown, resources = exporter.from_notebook_node(notebook,aResourceDict)
     imgpath=realbasename(mdname)+'.files'  ## n1
     markdown, resources = exporter.from_notebook_node(notebook,{'output_files_dir':imgpath})
     markdown=AddHugoHead(markdown,os.path.basename(aname).rsplit('.')[0])
@@ -91,31 +87,36 @@ weight: 300
 #config={"excludedir":["[.]git","[.]env","prj","__pycache__"]}
 config={"excludedir":["prj","__pycache__","llama.cpp","checkpoints"]}
 
+
 def checkAddIndex(targetfolder):
-    idxcontent="""---
+  """
+  每個目錄看看是不是有.skipindex
+  如果有,就不添加_index.md
+  """
+  idxcontent="""---
 title: %s
 description: auto
 weight: 300
 ---
 {{< local_file_list >}}
 """
-    if isFolderHas(targetfolder,".skipindex"):
-      return
-    for folder, subfolders,filenames in os.walk(targetfolder, topdown=True):  
-      tmpfolders= getExcludeDirPattern()
-      #tmpfolders.append('\\b.*_files\\b') # n1 -1 +1
-      tmpfolders.append('\\b.*\\.files\\b') # n1 -1 +1
-      exclude_folders='|'.join(tmpfolders)
-      subfolders[:] = [d for d in subfolders if not d.startswith('.')]
-      #如果目錄是被排除的目錄 ， 或者包含 .skipindex就不要加入_index.md 
-      subfolders[:] = [d for d in subfolders if re.search(exclude_folders,d)==None and not isFolderHas(os.path.join(folder,d),'.skipindex')]
+  if isFolderHas(targetfolder,".skipindex"):
+    return
+  for folder, subfolders,filenames in os.walk(targetfolder, topdown=True):  
+    tmpfolders= getExcludeDirPattern()
+    tmpfolders.append('\\b.*_files\\b') 
+    tmpfolders.append('\\b.*\\.files\\b') # n1  +1
+    exclude_folders='|'.join(tmpfolders)
+    subfolders[:] = [d for d in subfolders if not d.startswith('.')]
+    #如果目錄是被排除的目錄 ， 或者包含 .skipindex就不要加入_index.md 
+    subfolders[:] = [d for d in subfolders if re.search(exclude_folders,d)==None and not isFolderHas(os.path.join(folder,d),'.skipindex')]
 
-      if not fileIgnore(folder):
-        fname=os.path.join(folder,'_index.md')
-        if not os.path.exists(fname):
-            atitle=os.path.basename(folder)
-            atxt=idxcontent % ( atitle) 
-            writeText(atxt,fname)
+    if not fileIgnore(folder):
+      fname=os.path.join(folder,'_index.md')
+      if not os.path.exists(fname):
+          atitle=os.path.basename(folder)
+          atxt=idxcontent % ( atitle) 
+          writeText(atxt,fname)
 
 def fileIgnore(afile):
     rst=False

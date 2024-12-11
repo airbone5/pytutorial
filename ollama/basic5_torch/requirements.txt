@@ -19,5 +19,6 @@ datasets
 matplotlib
 scikit-learn
 tensorflow
+keras
 
 
