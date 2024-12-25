@@ -1,4 +1,7 @@
 @echo off
+rem setlocal
+set oldpath=%cd%
+cd /d %~dp0
 set prj=prj
 if not "%1"=="" set prj=%1
 echo %prj%
@@ -18,3 +21,5 @@ rem 已經存在不安裝
 if %ans%==No (
 pip install -r requirements.txt
 )
+
+cd %oldpath%
