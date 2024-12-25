@@ -1,24 +1,23 @@
-#--index-url https://download.pytorch.org/whl/cu124
-#torch torchvision torchaudio 
-#torch-2.5.1+cu124 torchaudio-2.5.1+cu124 torchvision-0.20.1+cu124
-#pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
-transformers
-peft
-datasets
-accelerate
-bitsandbytes
-faiss-cpu
-tensorboard
-#jupyter
+transformers==4.46.2
+peft==0.13.2
+datasets==3.1.0
+accelerate==1.1.1
+bitsandbytes==0.44.1
+faiss-cpu==1.9.0
+tensorboard==2.18.0
 ipykernel
 ipywidgets
 pillow
 imageio
 gradio
-datasets
 matplotlib
-scikit-learn
-tensorflow
-keras
-
+scikit-learn==1.5.2
+tensorflow==2.18.0
+keras==3.6.0
+tf-keras==2.18.0
+evaluate
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch
+torchvision
+torchaudio
 
