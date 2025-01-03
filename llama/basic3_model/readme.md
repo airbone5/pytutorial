@@ -2,7 +2,7 @@
 ```
 .
 ├── fromhf   demo hugginface to gguf ./fromhf
-├── llama.cpp 工具
+├── llama.cpp 工具 給fromhf 中的測試碼用的
 └── prj
 ```
 
