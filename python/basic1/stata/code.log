@@ -35,34 +35,18 @@ Notes:
       name:  <unnamed>
        log:  C:\Users\linchao\.ipython\stata\log_output.log
   log type:  text
- opened on:   3 Jan 2025, 00:12:29
+ opened on:   5 Jan 2025, 00:31:37
 
-. use https://stats.idre.ucla.edu/stat/stata/dae/binary.dta, clear
-
-. sum
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-       admit |        400       .3175    .4660867          0          1
-         gre |        400       587.7    115.5165        220        800
-         gpa |        400      3.3899    .3805668       2.26          4
-        rank |        400       2.485    .9444602          1          4
-
-. twoway function y=exp(x)/(1+exp(x)), range(-10 10)
-
-.  
 . 
+. display "Hello, I am printed by Stata."
+Hello, I am printed by Stata.
+
 . log close
       name:  <unnamed>
        log:  C:\Users\linchao\.ipython\stata\log_output.log
   log type:  text
- closed on:   3 Jan 2025, 00:12:30
+ closed on:   5 Jan 2025, 00:31:37
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-. graph display 
-
-. graph export "c:\pywork\python\basic1\stata\temp_graph.pdf", replace
-file c:\pywork\python\basic1\stata\temp_graph.pdf saved as PDF format
 
 . 
 . // End of line deletion prevention
