@@ -9,8 +9,9 @@ from nbconvert.exporters.exporter import ResourcesDict
 #import json
 
 
-def fixBackSlash(*astr):
- rst=[item.replace("\\","/") for item in astr]
+def fixBackSlash(astr):
+ #rst=[item.replace("\\","/") for item in astr]
+ rst=astr.replace("\\","/")
  return rst
 
 def isFolderHas(afolder,aname):
@@ -32,8 +33,19 @@ def realbasename(astr):
     #e.g. c:\folder\xx.bat-> xx
     return os.path.basename(astr).rsplit( ".", 1 )[0]
 
+
+def patchContentPath(adir):
+  #檢查是不是hugo root ,方法是看是不是有content 如果有,就返回 adir/content否則直接返回adir
+  rst=adir
+  if 'content' in os.listdir(adir):
+    if os.path.isdir(os.path.join(adir,'content')):
+      rst=os.path.join(adir,'content')
+  return rst
+
 def tomd(aname,mdname):
     content=readText(aname)
+    if content=='':
+      return("",[])
     notebook=nbformat.reads(content, as_version=4)
 
     
@@ -77,7 +89,7 @@ def AddHugoHead(atxt,atitle):
 
 def getbakname(apath):
     '''
-    備份檔案名稱
+    備份檔案名稱 不用了,用uniqueName替代
     '''
     modifiedTime = os.path.getmtime(apath) 
     fname=os.path.basename(apath)
@@ -88,11 +100,20 @@ def getbakname(apath):
     #os.rename(FilePath,FilePath+"_"+timeStamp)
     return fname
  
+def uniqueName(adir,aprefix):
+  aname=os.path.basename(aprefix)
+  aname='~'+aprefix
+  files = [f for f in os.listdir('.') if os.path.isfile(f)]
+
+  while aname in files:
+    aname='~'+aname
+  return aname
+ 
 def backupfile(apath):
-    aname=getbakname(apath)
-    if os.path.exists(aname):
-        print(aname+' replaced')
-    shutil.copyfile(apath, getbakname(apath))
+    adir=os.path.dirname(apath)
+    aname=uniqueName(adir,os.path.basename(apath))
+    aname=os.path.join(adir,aname)
+    shutil.copyfile(apath, aname)
 
 hugoHead="""---
 title: %s
@@ -186,11 +207,12 @@ def tohugo(srcdir,dstdir):
       # print('提早結束')    
       # continue
       for filename in filenames:        
-          srcName=os.path.join(folder,filename)
+          srcName=fixBackSlash( os.path.join(folder,filename))
           adir=os.path.dirname(srcName)
           x=os.path.relpath(adir,srcdir) #x:原始檔案的相對目錄
-          adir=os.path.join(dstdir,'content',x) #目標目錄
-          dstName=os.path.join(adir,filename)        
+          adir=os.path.join(dstdir,x) #目標目錄
+          
+          dstName=fixBackSlash(os.path.join(adir,filename))
           if fileIgnore(dstName)==False:
               if not os.path.exists(adir):
                   os.makedirs(adir)
@@ -199,7 +221,8 @@ def tohugo(srcdir,dstdir):
                   dstName=dstName.rsplit( ".", 1 )[0]+'.md'
                   md,res=tomd(srcName,dstName) #srcname例如temp/python/basic1/tutorial.ipynb
                   #print(res)
-                  handleres(res,adir,os.path.basename(srcName).rsplit('.')[0])
+                  if not md=="": # 內容是空白
+                    handleres(res,adir,os.path.basename(srcName).rsplit('.')[0])
                   
               else:
                   if srcName.endswith('.md') or srcName.endswith('.html'):
@@ -209,9 +232,11 @@ def tohugo(srcdir,dstdir):
                           print(dstName+'加入hugo表頭')
                           writeText(txt,dstName)
                       else:
-                          shutil.copyfile(srcName, dstName)
+                          if not os.path.normpath(srcName)==os.path.normpath(dstName):
+                             shutil.copyfile(srcName, dstName)
                   else:
-                      shutil.copyfile(srcName, dstName)
+                      if not os.path.normpath(srcName)==os.path.normpath(dstName):
+                        shutil.copyfile(srcName, dstName)
 
 
 def fixcontent(srcdir):

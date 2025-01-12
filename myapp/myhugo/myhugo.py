@@ -5,22 +5,13 @@ python myhugo.py newsite temp/xxx --publish_root ailearn
 python myhugo.py tohugo --srcdir c:/python2 --destdir temp/xxx
 python myhugo.py tohugo --srcdir c:/python2 --destdir temp/xxx --excludedir tmp 
 python myhugo.py tohugo --srcdir c:/pywork2 --destdir temp/xxx -e temp -e tmp -e pretrain -e myapp
+python myhugo.py tohugo --srcdir temp/python --destdir temp/xxx -e temp -e tmp -e pretrain -e myapp
 
 
 """
 import os, sys,  zipfile
 import click
 import subhugo
-
-# def resource_path(relative_path):
-#     """ Get absolute path to resource, works for dev and for PyInstaller """
-#     try:
-#         # PyInstaller creates a temp folder and stores path in _MEIPASS
-#         base_path = sys._MEIPASS
-#     except Exception:
-#         base_path = os.environ.get("_MEIPASS2",os.path.abspath("."))
-
-#     return os.path.join(base_path, relative_path)
  
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -81,7 +72,7 @@ def tohugo(srcdir,destdir,excludedir):
     """       
     for item in excludedir:
       subhugo.config["excludedir"].append(item)    
-
+    destdir=subhugo.patchContentPath(destdir)
     subhugo.tohugo(srcdir,destdir)
 
 @click.command()
