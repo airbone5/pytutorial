@@ -1,4 +1,12 @@
-
+---
+title: Pyinstall Primer
+description: Usage_Pyinstall
+tags: []
+categories: []
+series: []
+editext: md
+---
+<!--more-->
 
 ## 加入txt檔案的方法:
 ```sh

@@ -29,6 +29,7 @@ def writeText(txt,afile):
     file.close()    
 
 def realbasename(astr):
+    #e.g. c:\folder\xx.bat-> xx
     return os.path.basename(astr).rsplit( ".", 1 )[0]
 
 def tomd(aname,mdname):
@@ -45,11 +46,26 @@ def tomd(aname,mdname):
     writeText(markdown,mdname)
     return(markdown,resources)
 
-def hasHugoHead(afile):
+# def hasHugoHead(afile):
+#     p=r"^---[\s\S]*?---"
+#     txt=readText(afile)
+#     rst= not re.match(p,txt)==None    
+#     return(rst)   
+
+def txtHasHugoHead(txt):
     p=r"^---[\s\S]*?---"
-    txt=readText(afile)
     rst= not re.match(p,txt)==None    
     return(rst)   
+
+def fileHasHugoHead(afile):
+    if afile.endswith('ipynb'):
+      content=readText(afile) # content 是字串
+      jcontent=json.loads(content)
+      txt=jcontent["cells"][0]["source"] #第1個cell的內容
+      txt=''.join(txt)
+    else:
+      txt=readText(afile)
+    return(txtHasHugoHead(txt))
 
 def AddHugoHead(atxt,atitle):
     p=r"^---[\s\S]*?---"
@@ -187,7 +203,7 @@ def tohugo(srcdir,dstdir):
                   
               else:
                   if srcName.endswith('.md') or srcName.endswith('.html'):
-                      if not hasHugoHead(srcName):
+                      if not fileHasHugoHead(srcName):
                           txt=readText(srcName)
                           txt=AddHugoHead(txt,os.path.basename(srcName).rsplit('.')[0])
                           print(dstName+'加入hugo表頭')
@@ -217,7 +233,7 @@ def fixcontent(srcdir):
                     md,res=tomd(srcName,dstName)
                 else:
                     if srcName.endswith('.md') or srcName.endswith('.html'):
-                        if not hasHugoHead(srcName):
+                        if not fileHasHugoHead(srcName):
                             backupfile(srcName)
                             txt=readText(srcName)
                             txt=AddHugoHead(txt,os.path.basename(srcName).rsplit('.')[0])

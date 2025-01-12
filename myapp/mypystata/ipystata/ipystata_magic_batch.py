@@ -102,7 +102,7 @@ class iPyStataMagic(Magics):
 
         def stata_list(l):
             return ' '.join([str(x) for x in l])
-        
+        #目前檔案的子目錄
         python_cwd = os.getcwdu() if sys.version_info[0] == 2 else os.getcwd()
 
         args = parse_argstring(self.stata, line)
@@ -164,8 +164,8 @@ class iPyStataMagic(Magics):
                     val.to_stata(data_dir, write_index=False)
             else:
                 pass
-
-        stata = config.stata_install
+        # self._lib_dir c:\\users\linchao\.ipython\stata
+        stata = config.stata_install # 'c:\\program files\\stata17\\StataMP-64.exe'
         log_file = os.path.join(self._lib_dir, 'log_output.log')
         backup_log = os.path.join(self._lib_dir, 'backup_log.txt')
         data_out = os.path.join(self._lib_dir, 'data_output.dta')
